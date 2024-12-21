@@ -1,0 +1,5 @@
+https://www.baeldung.com/cs/naive-bayes-classification-performance
+https://towardsdatascience.com/unfolding-na%C3%AFve-bayes-from-scratch-2e86dcae4b01#08ef
+https://ieeexplore.ieee.org/document/7552291/
+
+https://www.tesble.com/10.1016/j.eswa.2006.04.001
