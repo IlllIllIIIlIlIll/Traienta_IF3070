@@ -55,6 +55,9 @@ Evaluasi performa model menggunakan berbagai metrik:
 # Clone repository
 git clone https://github.com/IlllIllIIIlIlIll/Traienta_IF3070.git
 
+# Install semua dependensi yang diperlukan
+pip install -r requirements.txt
+
 # Pindah ke direktori proyek
 cd Traienta_IF3070/src/public
 ```

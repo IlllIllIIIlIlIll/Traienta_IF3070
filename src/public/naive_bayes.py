@@ -1,5 +1,5 @@
 import numpy as np
-import joblib
+import pickle
 from typing import Dict, Tuple, List
 
 class GaussianNaiveBayes:
@@ -8,7 +8,7 @@ class GaussianNaiveBayes:
 
     Parameters:
     -----------
-    var_smoothing: float, default=1e-8
+    var_smoothing: float, default=1e-9
         Portion of the largest variance of all features that is added to variances for calculation stability.
 
     Attributes:
@@ -32,7 +32,7 @@ class GaussianNaiveBayes:
         Perform classification on an array of test vectors X.
     
     """
-    def __init__(self, var_smoothing: float = 1e-8):
+    def __init__(self, var_smoothing: float = 1e-9):
         self.var_smoothing: float = var_smoothing
         self.classes_: np.ndarray = None
         self.class_priors_: np.ndarray = None
@@ -88,7 +88,7 @@ class GaussianNaiveBayes:
         # Compute the posterior probability for each class
         for idx in range(len(self.classes_)):
             # Add log prior probability
-            log_likelihoods[idx] = np.log(self.class_priors_[idx] + 1e-8)  # epsilon
+            log_likelihoods[idx] = np.log(self.class_priors_[idx] + 1e-9)  # epsilon
         
             # Add log likelihood
             log_likelihoods[idx] += np.sum(self._log_pdf(idx, x))
@@ -99,9 +99,31 @@ class GaussianNaiveBayes:
     def _log_pdf(self, idx: int, x: np.ndarray) -> np.ndarray:
         """Compute the log probability density function for a Gaussian distribution"""
         # Add a small value to avoid division by zero
-        epsilon = 1e-8
+        epsilon = 1e-9
 
         var = self.vars_[idx] + epsilon
         mean = self.means_[idx]
         
         return -0.5 * (np.log(var) + np.log(2 * np.pi) + (x - mean) ** 2 / var)
+    
+    def save(self, path: str):
+        model_attributes = {
+            'classes_': self.classes_,
+            'class_priors_': self.class_priors_,
+            'features_': self.features_,
+            'means_': self.means_,
+            'vars_': self.vars_
+        }
+
+        with open(path, 'wb') as f:
+            pickle.dump(model_attributes, f)
+
+    def load(self, path: str):
+        with open(path, 'rb') as f:
+            model_attributes = pickle.load(f)
+        
+        self.classes_ = model_attributes['classes_']
+        self.class_priors_ = model_attributes['class_priors_']
+        self.features_ = model_attributes['features_']
+        self.means_ = model_attributes['means_']
+        self.vars_ = model_attributes['vars_']
