@@ -64,7 +64,7 @@ cd Traienta_IF3070/src/public
 2. Akses file `Tubes2_Kelompok30.ipynb`
 3. Jalankan seluruh sel dalam notebook secara berurutan
 
-## 👥 Tim Pengembang - BebanKaggle (Kelompok 21)
+## 👥 Tim Pengembang - Traienta (Kelompok 30)
 
 |   NIM    |            Nama                |                                      Kontribusi                                       |
 |----------|--------------------------------|---------------------------------------------------------------------------------------|
